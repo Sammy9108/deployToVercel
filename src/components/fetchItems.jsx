@@ -12,20 +12,15 @@ const FetchItmes = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    console.log("strted");
     dispatch(fetchStatusActions.markFetchingStarted());
     fetch("/items.json", { signal })
       .then((res) => res.json())
       .then(({ items }) => {
-        console.log("done", items);
-
         dispatch(fetchStatusActions.markFetchDone());
         dispatch(fetchStatusActions.markFetchingFinished());
         dispatch(ItemsActions.addInitialItems(items));
       });
     return () => {
-      console.log("end");
-
       controller.abort();
     };
   }, [fetchStatus]);
