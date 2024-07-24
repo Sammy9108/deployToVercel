@@ -13,16 +13,14 @@ const FetchItmes = () => {
     const signal = controller.signal;
 
     dispatch(fetchStatusActions.markFetchingStarted());
-    fetch("https://datajson-upp7.onrender.com/items", { signal })
+    fetch("https://datajson-upp7.onrender.com/items")
       .then((res) => res.json())
       .then(({ items }) => {
         dispatch(fetchStatusActions.markFetchDone());
         dispatch(fetchStatusActions.markFetchingFinished());
         dispatch(ItemsActions.addInitialItems(items));
       });
-    return () => {
-      controller.abort();
-    };
+   
   }, [fetchStatus]);
 
   return <></>;
